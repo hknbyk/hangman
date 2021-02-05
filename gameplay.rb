@@ -7,17 +7,27 @@ class Hangman
 
   def words
     [
-      "cricket", "A game played by gentlemen"
-      "jogging", "We are not walking..."
-      "celebrate", "Remembering special moments"
-      "continent", "There are 7 of these"
-      "exotic", "Not from around here..."
+      ["cricket", "A game played by gentlemen"],
+      ["jogging", "We are not walking..."],
+      ["celebrate", "Remembering special moments"],
+      ["continent", "There are 7 of these"],
+      ["exotic", "Not from around here..."],
     ]
   end
 
   def begin
     #ask user to start with a letter
-    puts "New game started... your clue is #{ @word.first }"
+    puts "New game started... your word is #{@word.first.size} characters longs"
+    word_teaser = ""
+
+    @word.first.size.times do
+      word_teaser += "_ "
+    end
+
+    puts word_teaser
+    puts "Your clue is #{ @word.last }"
+
+    puts "Enter a letter"
     guess = gets.chomp
 
     puts "You guessed #{guess}"
@@ -26,3 +36,4 @@ class Hangman
 end
 
 game = Hangman.new
+game.begin
