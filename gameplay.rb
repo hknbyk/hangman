@@ -15,22 +15,39 @@ class Hangman
     ]
   end
 
-  def begin
-    #ask user to start with a letter
-    puts "New game started... your word is #{@word.first.size} characters longs"
-    word_teaser = ""
+  def print_teaser
+   word_teaser = ""
 
     @word.first.size.times do
       word_teaser += "_ "
     end
 
-    puts word_teaser
-    puts "Your clue is #{ @word.last }"
+   puts word_teaser
+  end
 
+  def make_guess
     puts "Enter a letter"
     guess = gets.chomp
 
-    puts "You guessed #{guess}"
+    #if letter is not part of word then remove from the letters array
+    good_guess = @word.first.include? guess
+
+    if good_guess
+      puts "Good guess!"
+    else
+      puts "Sorry... try again!"
+    end
+  end
+
+  def begin
+    #ask user to start with a letter
+    puts "New game started... your word is #{@word.first.size} characters longs"
+    print_teaser
+
+    puts "Your clue is #{ @word.last }"
+
+    make_guess
+
   end
 
 end
