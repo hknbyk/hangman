@@ -3,6 +3,13 @@ class Hangman
   def initialize
     @letters = ("a".."z").to_a
     @word = words.sample
+    @lives = 7
+    @correct_guess = []
+    @word_teaser = ""
+
+    @word.first.size.times do
+      word_teaser += "_ "
+    end
   end
 
   def words
@@ -18,24 +25,34 @@ class Hangman
   def print_teaser
    word_teaser = ""
 
-    @word.first.size.times do
-      word_teaser += "_ "
-    end
-
    puts word_teaser
   end
 
   def make_guess
-    puts "Enter a letter"
-    guess = gets.chomp
+    if @lives > 0
+      puts "Enter a letter"
+      guess = gets.chomp
 
-    #if letter is not part of word then remove from the letters array
-    good_guess = @word.first.include? guess
+      #if letter is not part of word then remove from the letters array
+      good_guess = @word.first.include? guess
 
-    if good_guess
-      puts "Good guess!"
+      if good_guess
+        puts "You are correct!"
+        
+        @correct_guess << guess
+        #remove correct guess from the alphabet
+        @letters.delete guess
+
+
+        print_teaser
+        make_guess
+      else
+        @lives -= 1
+        puts "Sorry... you have #{@lives} lives left. try again!"
+        make_guess
+      end
     else
-      puts "Sorry... try again!"
+      puts "Game over! Better luck next time!"
     end
   end
 
